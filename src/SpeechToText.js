@@ -12,7 +12,6 @@ let interimResults = '';
 let resultCallback;
 const socket = io('http://127.0.0.1:5000')
 
-
 const startSpeechRecognition = (onResult) =>{
     socket.on('connect', ()=>{
         console.log('Connected to server');
@@ -21,7 +20,7 @@ const startSpeechRecognition = (onResult) =>{
     recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig)
     recognizer.recognizing = (_, event)=>{
         //console.log('Interim result:', event.result.text)
-        interimResults = event.result.text
+        interimResults += ` ${event.result.text}`
     }
     recognizer.recognized =(_, event)=>{
         const finalResult = event.result.text;
