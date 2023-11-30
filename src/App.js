@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import {startSpeechRecognition, stopSpeechRecognition} from "./SpeechToText";
 
 function App() {
+  const [transcription, setTranscription] = useState('');
+  const handleStart = () => {
+    startSpeechRecognition((result) => {
+      setTranscription(result);
+    });
+  };
+
+  const handleStop = () => {
+    stopSpeechRecognition();
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <button onClick={handleStart}>Start</button>
+        <button onClick={handleStop}>Stop</button>
+        <label>{transcription}</label>
+      </div>
   );
 }
 
